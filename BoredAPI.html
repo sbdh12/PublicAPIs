@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bored API Explorer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+            color: #4a5568;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-top: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #68bbd3 0%, #8ac6d1 100%);
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 32px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .subtitle {
+            font-weight: 400;
+            opacity: 0.95;
+            font-size: 16px;
+            max-width: 80%;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-label i {
+            color: #68bbd3;
+        }
+
+        .activity-type {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid rgba(104, 187, 211, 0.3);
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 500;
+            background: #f8fafc;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2368bbd3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            background-size: 16px;
+        }
+
+        .activity-type:focus {
+            outline: none;
+            border-color: #68bbd3;
+            box-shadow: 0 0 0 4px rgba(104, 187, 211, 0.2);
+            background-color: #ffffff;
+        }
+
+        .get-activity-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #68bbd3 0%, #8ac6d1 100%);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(104, 187, 211, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .get-activity-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(104, 187, 211, 0.4);
+        }
+
+        .get-activity-btn:active {
+            transform: translateY(0);
+        }
+
+        .get-activity-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.2), transparent);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .get-activity-btn:hover::after {
+            transform: translateY(0);
+        }
+
+        .activity-result {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 25px;
+            border: 2px solid rgba(104, 187, 211, 0.2);
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity-result::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #68bbd3, #8ac6d1);
+        }
+
+        .activity-result.active {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .activity-text {
+            font-size: 22px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        .activity-type-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #68bbd3 0%, #8ac6d1 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 8px rgba(104, 187, 211, 0.2);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(104, 187, 211, 0.3);
+            border-top: 4px solid #68bbd3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+           100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: rgba(254, 215, 215, 0.5);
+            color: #e53e3e;
+            padding: 18px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(229, 62, 62, 0.2);
+            display: none;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .info-box {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 22px;
+            border: 1px solid rgba(104, 187, 211, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .info-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #68bbd3;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-text {
+            font-size: 15px;
+            color: #718096;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .info-text:last-child {
+            margin-bottom: 0;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #718096;
+            font-size: 15px;
+            padding: 0 15px;
+        }
+
+        /* Mobile-specific optimizations */
+        @media (max-width: 768px) {
+            .header {
+                padding: 25px 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 15px;
+                max-width: 90%;
+            }
+            
+            .activity-text {
+                font-size: 20px;
+            }
+            
+            .activity-type, .get-activity-btn {
+                padding: 15px;
+            }
+            
+            .get-activity-btn {
+                font-size: 16px;
+            }
+        }
+
+        /* Animation for the activity card */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .activity-result.active {
+            animation: fadeIn 0.6s ease, pulse 2s ease-in-out 0.6s;
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(104, 187, 211, 0.15);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements" id="floating-elements"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Bored API Explorer</h1>
+            <p class="subtitle">Find relaxing activities for your free time</p>
+        </div>
+        
+        <div class="content">
+            <div class="input-group">
+                <label for="activity-type" class="input-label">
+                    <i class="fas fa-filter"></i>
+                    Activity Type
+                </label>
+                <select id="activity-type" class="activity-type">
+                    <option value="">Any type</option>
+                    <option value="education">Education</option>
+                    <option value="recreational">Recreational</option>
+                    <option value="social">Social</option>
+                    <option value="diy">DIY</option>
+                    <option value="charity">Charity</option>
+                    <option value="cooking">Cooking</option>
+                    <option value="relaxation">Relaxation</option>
+                    <option value="music">Music</option>
+                    <option value="busywork">Busywork</option>
+                </select>
+            </div>
+            
+            <button id="get-activity-btn" class="get-activity-btn">
+                <i class="fas fa-search"></i> Find Activity
+            </button>
+            
+            <div class="error-message" id="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="error-text">Failed to fetch activity. Please try again.</span>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>Finding the perfect activity for you...</p>
+            </div>
+            
+            <div id="activity-result">
+                <!-- Content will be inserted here by JavaScript -->
+            </div>
+            
+            <div class="info-box">
+                <div class="info-title">
+                    <i class="fas fa-info-circle"></i>
+                    About Bored API
+                </div>
+                <p class="info-text">The Bored API suggests random activities to fight boredom. It provides activities with filters for type, participants, price, and accessibility.</p>
+                <p class="info-text">This application uses the live API to bring you these activity suggestions in real-time.</p>
+            </div>
+
+            <div class="info-box">
+                <div class="info-title">
+                    <i class="fas fa-lightbulb"></i>
+                    How It Works
+                </div>
+                <p class="info-text">Select an activity type or leave it as "Any type" for a completely random suggestion.</p>
+                <p class="info-text">Click "Find Activity" to get a new activity idea from the API.</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Bored API Explorer &bull; Powered by Bored API</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const activityType = document.getElementById('activity-type');
+            const getActivityBtn = document.getElementById('get-activity-btn');
+            const activityResult = document.getElementById('activity-result');
+            const errorMessage = document.getElementById('error-message');
+            const errorText = document.getElementById('error-text');
+            const loading = document.getElementById('loading');
+            const floatingElements = document.getElementById('floating-elements');
+            
+            // Create floating elements
+            createFloatingElements();
+            
+            // Set up event listeners
+            getActivityBtn.addEventListener('click', getActivity);
+            
+            // Fetch initial activity on load
+            getActivity();
+            
+            // Create floating elements function
+            function createFloatingElements() {
+                for (let i = 0; i < 20; i++) {
+                    const element = document.createElement('div');
+                    element.classList.add('floating-element');
+                    
+                    const size = 20 + Math.random() * 60;
+                    element.style.width = `${size}px`;
+                    element.style.height = `${size}px`;
+                    
+                    element.style.left = `${Math.random() * 100}%`;
+                    element.style.top = `${100 + Math.random() * 20}%`;
+                    
+                    const duration = 20 + Math.random() * 30;
+                    element.style.animationDuration = `${duration}s`;
+                    element.style.animationDelay = `${Math.random() * 5}s`;
+                    
+                    floatingElements.appendChild(element);
+                }
+            }
+            
+            // Get activity from API
+            async function getActivity() {
+                // Show loading, hide previous results
+                loading.style.display = 'block';
+                activityResult.innerHTML = '';
+                errorMessage.style.display = 'none';
+                
+                try {
+                    let apiUrl = 'https://apis.scrimba.com/bored/api/activity';
+                    const selectedType = activityType.value;
+                    
+                    if (selectedType) {
+                        apiUrl += `?type=${selectedType}`;
+                    }
+                    
+                    // Fetch activity from API
+                    const response = await fetch(apiUrl);
+                    
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch activity');
+                    }
+                    
+                    const data = await response.json();
+                    
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+                    
+                    // Display results
+                    displayActivity(data);
+                } catch (error) {
+                    showError('Failed to fetch activity. Please try again.');
+                    console.error('Error:', error);
+                } finally {
+                    loading.style.display = 'none';
+                }
+            }
+            
+            // Display activity result
+            function displayActivity(activity) {
+                // Format activity type for display
+                const activityTypeFormatted = activity.type.charAt(0).toUpperCase() + activity.type.slice(1);
+                
+                const activityHTML = `
+                    <div class="activity-result active">
+                        <div class="activity-type-badge">${activityTypeFormatted}</div>
+                        <div class="activity-text">${activity.activity}</div>
+                    </div>
+                `;
+                
+                activityResult.innerHTML = activityHTML;
+            }
+            
+            // Show error message
+            function showError(message) {
+                errorText.textContent = message;
+                errorMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

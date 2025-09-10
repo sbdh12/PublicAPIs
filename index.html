@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public APIs Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+    <div class="container mx-auto px-4 py-12">
+        <header class="text-center mb-16" data-aos="fade-down">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 gradient-text">Public APIs: Simplifying Modern Application Development</h1>
+            <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
+                Prototype implementations demonstrating the power and versatility of public APIs
+            </p>
+        </header>
+
+        <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 px-4 sm:px-0">
+            <!-- Weather API Card -->
+            <a href="WeatherApi.html" class="group" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover h-full flex flex-col">
+                    <div class="p-4 sm:p-6 flex-1">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i data-feather="cloud" class="text-blue-600 w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800">Weather API</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Real-time weather data and forecasts from around the world.
+                        </p>
+                    </div>
+                    <div class="px-4 sm:px-6 py-3 sm:py-4 bg-gray-50 border-t border-gray-100">
+                        <span class="inline-flex items-center text-blue-600 group-hover:text-blue-800 transition-colors">
+                            Explore API
+                            <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Exchange API Card -->
+            <a href="ExchangeAPI.html" class="group" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover h-full flex flex-col">
+                    <div class="p-6 flex-1">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-green-100 p-3 rounded-full mr-4">
+                                <i data-feather="dollar-sign" class="text-green-600 w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800">Currency Converter</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Live currency exchange rates and conversion between currencies.
+                        </p>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-100">
+                        <span class="inline-flex items-center text-green-600 group-hover:text-green-800 transition-colors">
+                            Explore API
+                            <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- NASA API Card -->
+            <a href="NasaApi.html" class="group" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover h-full flex flex-col">
+                    <div class="p-6 flex-1">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-100 p-3 rounded-full mr-4">
+                                <i data-feather="globe" class="text-purple-600 w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800">NASA APOD</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Astronomy Picture of the Day from NASA's vast collection.
+                        </p>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-100">
+                        <span class="inline-flex items-center text-purple-600 group-hover:text-purple-800 transition-colors">
+                            Explore API
+                            <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Bored API Card -->
+            <a href="BoredApi.html" class="group" data-aos="fade-up" data-aos-delay="400">
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover h-full flex flex-col">
+                    <div class="p-6 flex-1">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                                <i data-feather="activity" class="text-yellow-600 w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800">Bored API</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Find random activities to beat boredom and spark creativity.
+                        </p>
+                    </div>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-100">
+                        <span class="inline-flex items-center text-yellow-600 group-hover:text-yellow-800 transition-colors">
+                            Explore API
+                            <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </main>
+
+        <footer class="mt-12 sm:mt-20 text-center text-gray-500 text-xs sm:text-sm px-4" data-aos="fade-up">
+            <p>Prototypes created for dissertation research on Public API integration</p>
+            <p class="mt-2">Hosted on GitHub Pages</p>
+        </footer>
+    </div>
+
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+        feather.replace();
+    </script>
+</body>
+</html>
